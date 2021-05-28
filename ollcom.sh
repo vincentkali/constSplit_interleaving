@@ -1,0 +1,1 @@
+../../build/bin/clang -mllvm $1 $2 -o $3
