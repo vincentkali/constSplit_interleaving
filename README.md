@@ -1,15 +1,16 @@
 # Introduction
-	Constant Split and Interleaving is the plug-in of ollvm,
+Constant Split and Interleaving is the plug-in of ollvm,
 which target on improving the obfuscation of constant value.
 
 # Usage
-## get constSplit.so
+## Get constSplit.so
 Use command 
 > make 
+
 To get the constSplit.so, which is a share object file used by optcom.sh
-## optcom.sh
-After *make*, you can use the command below to obfucate your file
-For example, if I want to obfuscate *test.c*.
+## Use optcom.sh
+After ++make++, you can use the command below to obfucate your file
+For example, if I want to obfuscate ++test.c++.
 > sh optcom.sh test
 
 # ConstSplit
@@ -23,3 +24,4 @@ For example.
 > // After constSplit
 > a = b + 110
 > a = a - 100
+
