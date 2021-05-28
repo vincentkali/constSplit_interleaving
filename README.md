@@ -15,7 +15,7 @@ For example, if I want to obfuscate **test.c**.
 
 # ConstSplit
 It will split the binary opration which contain constant value, 
-and it usually use **substitution** subsequently.
+and it usually use [substitution](https://github.com/obfuscator-llvm/obfuscator/wiki/Instructions-Substitution) subsequently.
 
 For example.
 > // Before constSplit\
