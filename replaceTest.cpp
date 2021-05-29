@@ -73,9 +73,9 @@ bool ReplaceTest::replaceTest(llvm::Function *f) {
 
 
           ConstantInt *co = (ConstantInt *)ConstantInt::get(ty, 100);
-          BinaryOperator *op = BinaryOperator::Create(Instruction::Add, value0 , co, "", value0);
-
-
+          BinaryOperator *op = BinaryOperator::Create(Instruction::Add, value0 , co, "", ii);
+          //ii->replaceAllUsesWith(op);
+          ii->setOperand(0, op);
         }
 
 

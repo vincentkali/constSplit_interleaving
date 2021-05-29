@@ -1,5 +1,5 @@
-CC=../../build-4.0/bin/clang
-OPT=../../build-4.0/bin/opt
+CC=../../obfuscator-9.0/llvm/bin/clang
+OPT=../../obfuscator-9.0/llvm/bin/opt
 
 TAR=$1
 PASS=$2
@@ -9,12 +9,10 @@ $CC -c -emit-llvm -O0 ${TAR}.c -o ${TAR}.bc
 
 $OPT -load ./${PASS}.so -${COMMAND} ${TAR}.bc -o ${TAR}_${PASS}.bc
 
-exit
-
 llvm-dis ${TAR}.bc -o ${TAR}.ll
 llvm-dis ${TAR}_${PASS}.bc -o ${TAR}_${PASS}.ll
 
-$CC -cc1 -O0 ${TAR}.bc -o ${TAR}
-$CC -cc1 -O0 ${TAR}_${PASS}.bc -o ${TAR}_${PASS}
+$CC  ${TAR}.bc -o ${TAR}.o
+$CC  ${TAR}_${PASS}.bc -o ${TAR}_${PASS}.o
 
-# ../../build-4.0/bin/clang ${TAR}_split.bc -mllvm -sub -o ${TAR}_split_sub.o
+# ../../obfuscator-9.0/llvm/bin/clang ${TAR}_split.bc -mllvm -sub -o ${TAR}_split_sub.o
