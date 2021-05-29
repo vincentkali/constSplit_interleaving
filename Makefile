@@ -6,13 +6,20 @@ CXX=`$(LLVM_CONFIG) --bindir`/clang
 CXXFLAGS=`$(LLVM_CONFIG) --cppflags` -fPIC -fno-rtti
 LDFLAGS=`$(LLVM_CONFIG) --ldflags`
 
-all: constSplit.so
+TARGET=constSplit.so replaceTest.so # interleaving.so
 
-constSplit.so: constSplit.o
-	$(CXX) -shared constSplit.o -o constSplit.so $(LDFLAGS) -fPIC
+TARGETOBJ=$(patsubst %.so, %.o, $(TARGET))
 
-constSplit.o: constSplit.cpp
-	$(CXX) -c constSplit.cpp -o constSplit.o $(CXXFLAGS)
+all: $(TARGET) littleClean
+
+%.so: %.o
+	$(CXX) -shared $< -o $@ $(LDFLAGS) -fPIC
+
+%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 clean:
-	rm -f *.o constSplit.so
+	rm -f $(TARGETOBJ) $(TARGET)
+
+littleClean:
+	rm -f $(TARGETOBJ)

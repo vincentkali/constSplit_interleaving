@@ -1,16 +1,20 @@
-CC=../../build/bin/clang
-OP=../../build/bin/opt
+CC=../../build-4.0/bin/clang
+OPT=../../build-4.0/bin/opt
 
-$CC -c -emit-llvm -O0 $1.c -o $1.bc
+TAR=$1
+PASS=$2
+COMMAND=`echo "$PASS" | tr '[:upper:]' '[:lower:]'`
 
-$OP -load ./constSplit.so -constsplit $1.bc -o $1_split.bc
+$CC -c -emit-llvm -O0 ${TAR}.c -o ${TAR}.bc
 
-#llvm-dis $1.bc -o $1.ll
-#llvm-dis $1_split.bc -o $1_split.ll
+$OPT -load ./${PASS}.so -${COMMAND} ${TAR}.bc -o ${TAR}_${PASS}.bc
 
-$CC -cc1 -O0 $1.bc -o $1
-$CC -cc1 -O0 $1_split.bc -o $1_split
+exit
 
-../../build/bin/clang $1_split.bc -mllvm -sub -o $1_split_sub.o
+llvm-dis ${TAR}.bc -o ${TAR}.ll
+llvm-dis ${TAR}_${PASS}.bc -o ${TAR}_${PASS}.ll
 
-#rm *.bc
+$CC -cc1 -O0 ${TAR}.bc -o ${TAR}
+$CC -cc1 -O0 ${TAR}_${PASS}.bc -o ${TAR}_${PASS}
+
+# ../../build-4.0/bin/clang ${TAR}_split.bc -mllvm -sub -o ${TAR}_split_sub.o
