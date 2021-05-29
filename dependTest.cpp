@@ -50,7 +50,7 @@ struct DependTest : public llvm::FunctionPass {
 }
 
 char DependTest::ID = 0;
-static llvm::RegisterPass<DependTest> X("replacetest", "replacetest pass");
+static llvm::RegisterPass<DependTest> X("dependtest", "dependtest pass");
 //Pass *llvm::createSubstitution(bool flag) { return new Substitution(flag); }
 
 bool DependTest::runOnFunction(llvm::Function &F) {
@@ -69,11 +69,23 @@ bool DependTest::dependTest(llvm::Function *f) {
 
         if (inst->isBinaryOp()){ // c
           llvm::Value* value0 = inst->getOperand(0); // a
-          llvm::Value* value1 = inst->getOperand(1); // a
-          if (value1 == value0){
+          llvm::Value* value1 = inst->getOperand(1); // b
+          llvm::Instruction* next = &*(++inst);
+          if (ii == next->getOperand(0)){
             errs() << "Same\n";
+            errs() << ii << "\n";
+            llvm::Value* value2 = &*ii;
+            errs() << value2 << "\n";
+            errs() << next->getOperand(0) << "\n";
+            llvm::Value* value3 = next->getOperand(0);
+            errs() << value3 << "\n";
+          }else{
+            errs() << "Diff\n";
+            //errs() << "value0: " << *value0 << "\n";
+            //errs() << "value1: " << *value1 << "\n";
           }
         }
+        
 
 
     }                  // End for basickblock

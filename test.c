@@ -5,7 +5,9 @@ int main(void){
 	int b = 2;
 	int c;
 	int d;
-	c = a + a;
+	c = a + b;
+	d = c + 1;
+
 	
-	printf("value: %d",c);
+	printf("value: %d",d);
 }
