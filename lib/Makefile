@@ -1,4 +1,4 @@
-PATH_TO_BIN=../../llvm-src/build/bin
+PATH_TO_BIN=../../../llvm-src/build/bin
 
 LLVM_CONFIG=$(PATH_TO_BIN)/llvm-config
 
@@ -6,7 +6,7 @@ CXX=`$(LLVM_CONFIG) --bindir`/clang
 CXXFLAGS=`$(LLVM_CONFIG) --cppflags` -fPIC -fno-rtti
 LDFLAGS=`$(LLVM_CONFIG) --ldflags`
 
-TARGET=constSplit.so replaceTest.so  dependTest.so# interleaving.so
+TARGET=constSplit.so replaceTest.so  dependTest.so interleaving.so testFunction.so
 
 TARGETOBJ=$(patsubst %.so, %.o, $(TARGET))
 
