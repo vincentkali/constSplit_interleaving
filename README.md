@@ -16,12 +16,3 @@ For example, if I want to obfuscate **test.c**.
 # ConstSplit
 It will split the binary opration which contain constant value, 
 and it usually use [substitution](https://github.com/obfuscator-llvm/obfuscator/wiki/Instructions-Substitution) subsequently.
-
-For example.
-> // Before constSplit\
-> a = b + 10
-> 
-> // After constSplit\
-> a = b + 110\
-> a = a - 100
-
